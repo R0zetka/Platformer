@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class ButtonsStart : MonoBehaviour
 {
-     void OnMouseUpAsButton()
+
+     void Start()
+    {
+       
+    }
+
+    void OnMouseUpAsButton()
     {
         Application.LoadLevel("Level1");
     }
