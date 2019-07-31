@@ -1290,7 +1290,7 @@ GameObject:
   - component: {fileID: 4323476201311776}
   - component: {fileID: 95020386144158004}
   m_Layer: 0
-  m_Name: Character_CyberPunk_Male_01
+  m_Name: Main_character_male
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1322,7 +1322,7 @@ Animator:
   m_GameObject: {fileID: 1831749432875682}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f13349cc09b03d447a26b54d406aaa8e, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d8ec0077ee2128e45b28db9e6629cbef, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
