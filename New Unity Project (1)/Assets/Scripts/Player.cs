@@ -42,6 +42,11 @@ public class Player : MonoBehaviour
 
         ch_controller.Move(moveVector * Time.deltaTime);// метод движения персонажа по  направлению
 
+        if(Vector3.Angle(Vector3.forward,moveVector)>1f|| Vector3.Angle(Vector3.forward, moveVector) == 0)
+        {
+            Vector3 direct = Vector3.RotateTowards(transform.forward, moveVector, speed, 0.0f);
+            transform.rotation = Quaternion.LookRotation(direct);
+        }
 
     }
 
@@ -56,6 +61,10 @@ public class Player : MonoBehaviour
         {
             gravityForce = -1f;
         }
+        if (Input.GetKeyDown(KeyCode.W) && ch_controller.isGrounded) gravityForce = speedJump;
+
+
+
     }
 
 

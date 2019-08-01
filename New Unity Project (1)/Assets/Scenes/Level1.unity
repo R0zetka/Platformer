@@ -7396,7 +7396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  speedJump: 5
+  speedJump: 10
   gravityForce: 0
   moveVector: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
