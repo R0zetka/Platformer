@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
 
 
-    public GameObject player;//персонаж
+    public Transform GameObject;//направление просмотра игрока чтоб камера предвигалась
 
     // Use this for initialization
     void Start()
@@ -29,8 +29,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         CharacterMove();
         GamingGravity();
+        transform.LookAt(GameObject);
+
     }
     //метод перемещения
     private void CharacterMove()
@@ -38,15 +41,20 @@ public class Player : MonoBehaviour
         //перемещение
         moveVector = Vector3.zero;
         moveVector.x = Input.GetAxis("Horizontal") * speed;
-        moveVector.y = gravityForce;
 
-        ch_controller.Move(moveVector * Time.deltaTime);// метод движения персонажа по  направлению
 
-        if(Vector3.Angle(Vector3.forward,moveVector)>1f|| Vector3.Angle(Vector3.forward, moveVector) == 0)
+        if (Vector3.Angle(Vector3.forward, moveVector) > 1f || Vector3.Angle(Vector3.forward, moveVector) == 0)
         {
             Vector3 direct = Vector3.RotateTowards(transform.forward, moveVector, speed, 0.0f);
             transform.rotation = Quaternion.LookRotation(direct);
         }
+
+
+        moveVector.y = gravityForce;
+
+        ch_controller.Move(moveVector * Time.deltaTime);// метод движения персонажа по  направлению
+
+     
 
     }
 
