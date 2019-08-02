@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-public class Player : MonoBehaviour {     public float speed;//скорость персонажа     public float speedJump;//сила прыжка     public float gravityForce; // гравитация персонажа     public Vector3 moveVector; // направление движения персонажа      // ссылка на компоненты     private CharacterController ch_controller;     private Animator ch_animator;     private MabelControler mContr;        public Transform GameObject;//направление просмотра игрока чтоб камера предвигалась      // Use this for initialization     private void Start()     {         ch_controller = GetComponent<CharacterController>();         ch_animator = GetComponent<Animator>();        // mContr = GameObject.FindGameObjectsWithTag("Joystick").GetComponent<MabelControler>();     }
+public class Player : MonoBehaviour {     public float speed;//скорость персонажа     public float speedJump;//сила прыжка     public float gravityForce; // гравитация персонажа     public Vector3 moveVector; // направление движения персонажа      // ссылка на компоненты     private CharacterController ch_controller;     private Animator ch_animator;     private MabelControler mContr;        //public Transform GameObject;//направление просмотра игрока чтоб камера предвигалась      // Use this for initialization     private void Start()     {         ch_controller = GetComponent<CharacterController>();         ch_animator = GetComponent<Animator>();         mContr = GameObject.FindGameObjectWithTag("Joystick").GetComponent<MabelControler>();     }
 
     // Update is called once per frame
-    void Update()     {          CharacterMove();         GamingGravity();         transform.LookAt(GameObject);      }
+    void Update()     {          CharacterMove();         GamingGravity();         //transform.LookAt(GameObject);      }
     //метод перемещения
     private void CharacterMove()     {
         //перемещение
