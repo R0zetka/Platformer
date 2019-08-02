@@ -5758,7 +5758,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1423439298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2851b53440650403a891992644bf4fa7, type: 3}
+  m_Script: {fileID: 11500000, guid: dedbbf9bfa8454171a6708f45b79d7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   JoystickBG: {fileID: 0}
@@ -7687,10 +7687,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f20b594f22f47ba81c3e1476869008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  speedJump: 9.6
-  gravityForce: 5
-  moveVector: {x: 0, y: 0, z: 0}
 --- !u!143 &1825126605
 CharacterController:
   m_ObjectHideFlags: 0

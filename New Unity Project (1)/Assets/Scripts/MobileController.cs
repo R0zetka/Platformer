@@ -1,8 +1,11 @@
-﻿using UnityEngine.UI;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class MabelControler : MonoBehaviour , IDragHandler,IPointerUpHandler,IPointerDownHandler
+
+public class MobileController : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
     public Image JoystickBG;
     public Image Joystick;
@@ -26,11 +29,11 @@ public class MabelControler : MonoBehaviour , IDragHandler,IPointerUpHandler,IPo
     public virtual void OnDrag(PointerEventData ped)
     {
         Vector2 pos;
-        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(JoystickBG.rectTransform,ped.position,ped.pressEventCamera, out pos))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(JoystickBG.rectTransform, ped.position, ped.pressEventCamera, out pos))
         {
             pos.x = (pos.x / JoystickBG.rectTransform.sizeDelta.x);// получение координат позициии на джойстик
             pos.y = (pos.y / JoystickBG.rectTransform.sizeDelta.y);// получение координат позициии на джойстик
-            
+
             InputVector = new Vector2(pos.x * 2 - 1, pos.y * 2 - 1);//утановка точных координат из косания 
             InputVector = (InputVector.magnitude > 1.0f) ? InputVector.normalized : InputVector;
 

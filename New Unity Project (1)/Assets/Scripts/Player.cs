@@ -3,18 +3,83 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Player : MonoBehaviour {     public float speed;//скорость персонажа     public float speedJump;//сила прыжка     public float gravityForce; // гравитация персонажа     public Vector3 moveVector; // направление движения персонажа      // ссылка на компоненты     private CharacterController ch_controller;     private Animator ch_animator;     private MabelControler mContr;        //public Transform GameObject;//направление просмотра игрока чтоб камера предвигалась      // Use this for initialization     private void Start()     {         ch_controller = GetComponent<CharacterController>();         ch_animator = GetComponent<Animator>();         mContr = GameObject.FindGameObjectWithTag("Joystick").GetComponent<MabelControler>();     }
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-    // Update is called once per frame
-    void Update()     {          CharacterMove();         GamingGravity();         //transform.LookAt(GameObject);      }
-    //метод перемещения
-    private void CharacterMove()     {
-        //перемещение
-        moveVector = Vector3.zero;         moveVector.x = mContr.Horizontal() * speed;           if (Vector3.Angle(Vector3.forward, moveVector) > 1f || Vector3.Angle(Vector3.forward, moveVector) == 0)         {             Vector3 direct = Vector3.RotateTowards(transform.forward, moveVector, speed, 0.0f);             transform.rotation = Quaternion.LookRotation(direct);         }           moveVector.y = gravityForce;          ch_controller.Move(moveVector * Time.deltaTime);// метод движения персонажа по  направлению
+public class CharacterMechaniks : MonoBehaviour
+{
 
+    //Основные параметры
 
+    public float speedMove;//скорость персонажа
+    public float jumpPower;//сила прыжка
 
+    //Параметры геймплея для персонажа
+    private float gravityForce;//гравитация перса
+    private Vector3 moveVector;//направление движения перса
+
+    //ссылки на компоненты
+    private CharacterController ch_controller;
+    private Animator ch_animator;
+    private MobileController mContr;
+
+    private void Start()
+    {
+        ch_controller = GetComponent<CharacterController>();
+        ch_animator = GetComponent<Animator>();
+        mContr = GameObject.FindGameObjectWithTag("Joystick").GetComponent<MobileController>();
     }
 
-    //метод гравитации
-    private void GamingGravity()     {         if (!ch_controller.isGrounded)         {             gravityForce -= 20f * Time.deltaTime;         }         else         {             gravityForce = -1f;         }         if (Input.GetKeyDown(KeyCode.W) && ch_controller.isGrounded) gravityForce = speedJump;        }    }
+    private void Update()
+    {
+        CharacterMove();
+        GamingGravity();
+    }
+
+    //метод перемещения персонажа
+    private void CharacterMove()
+    {
+        //Перемещение по поверхности
+        if (ch_controller.isGrounded)
+        {
+            ch_animator.ResetTrigger("Jump");
+            ch_animator.SetBool("Falling", false);
+
+            moveVector = Vector3.zero;
+            moveVector.x = mContr.Horizontal() * speedMove;
+            moveVector.z = mContr.Vertical() * speedMove;
+
+            //Передвижение персонажа
+            if (moveVector.x != 0 || moveVector.z != 0) ch_animator.SetBool("Move", true);
+            else ch_animator.SetBool("Move", false);
+
+            if (Vector3.Angle(Vector3.forward, moveVector) > 1f || Vector3.Angle(Vector3.forward, moveVector) == 0)
+            {
+                Vector3 direct = Vector3.RotateTowards(transform.forward, moveVector, speedMove, 0.0f);
+                transform.rotation = Quaternion.LookRotation(direct);
+            }
+        }
+        else
+        {
+            if (gravityForce < -3f) ch_animator.SetBool("Falling", true);
+        }
+
+        moveVector.y = gravityForce;//Расчет гравитации выполнять после разворота
+        ch_controller.Move(moveVector * Time.deltaTime);//Метод передвижения по направлению
+    }
+
+    //Метод гравитации
+    private void GamingGravity()
+    {
+        if (!ch_controller.isGrounded) gravityForce -= 20f * Time.deltaTime;
+        else gravityForce = -1f;
+        if (Input.GetKeyDown(KeyCode.Space) && ch_controller.isGrounded) gravityForce = jumpPower;
+        {
+            gravityForce = jumpPower;
+            ch_animator.SetTrigger("Jump");
+        }
+    }
+}
+
+
