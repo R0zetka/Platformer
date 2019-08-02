@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: b33e456ae548c4d4ca6c71bd1d2c203d
 ModelImporter:
-  serializedVersion: 25
+  serializedVersion: 28
   internalIDToNameTable:
   - first:
       1: 100000
@@ -467,13 +467,13 @@ ModelImporter:
     second: TongueTip
   - first:
       74: 7400000
-    second: jumpdown
+    second: sprignul_s_yashika
   - first:
       95: 9500000
     second: //RootNode
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 0
@@ -502,7 +502,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: jumpdown
+      name: sprignul_s_yashika
       takeName: _197_Idle_JumpDownLow_Idle
       internalID: 7400000
       firstFrame: 156
@@ -537,6 +537,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
@@ -567,7 +568,6 @@ ModelImporter:
     normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
-  copyAvatar: 1
   humanDescription:
     serializedVersion: 3
     human:
@@ -1306,6 +1306,7 @@ ModelImporter:
     type: 3}
   animationType: 3
   humanoidOversampling: 1
+  avatarSetup: 2
   additionalBone: 0
   userData: 
   assetBundleName: 
