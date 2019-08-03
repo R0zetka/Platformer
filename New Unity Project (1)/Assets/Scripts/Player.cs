@@ -7,77 +7,33 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
-    //Основные параметры
-
-    public float speedMove;//скорость персонажа
-    public float jumpPower;//сила прыжка
-
-    //Параметры геймплея для персонажа
-    private float gravityForce;//гравитация перса
-    private Vector3 moveVector;//направление движения перса
-
-    //ссылки на компоненты
-    private CharacterController ch_controller;
-    private Animator ch_animator;
-    private MobileController mContr;
+    Rigidbody2D rb;
+    public GameObject BtnRight;
+    public GameObject BtnLeft;
+    float PosBtnLeft;
+    float PosBtnRight;
+    float run;
 
     private void Start()
     {
-        ch_controller = GetComponent<CharacterController>();
-        ch_animator = GetComponent<Animator>();
-        mContr = GameObject.FindGameObjectWithTag("Joystick").GetComponent<MobileController>();
+        PosBtnRight = BtnRight.transform.position.y;
+        PosBtnLeft = BtnLeft.transform.position.y;
+        rb = GetComponent<Rigidbody2D>();
     }
-
     private void Update()
     {
-        CharacterMove();
-        GamingGravity();
-    }
-
-    //метод перемещения персонажа
-    private void CharacterMove()
-    {
-        //Перемещение по поверхности
-        if (ch_controller.isGrounded)
+        if (PosBtnLeft != BtnLeft.transform.position.y)
         {
-            ch_animator.ResetTrigger("Jump");
-            ch_animator.SetBool("Falling", false);
-
-            moveVector = Vector3.zero;
-            moveVector.x = mContr.Horizontal() * speedMove;
-            moveVector.z = mContr.Vertical() * speedMove;
-
-            //Передвижение персонажа
-            if (moveVector.x != 0 || moveVector.z != 0) ch_animator.SetBool("Move", true);
-            else ch_animator.SetBool("Move", false);
-
-            if (Vector3.Angle(Vector3.forward, moveVector) > 1f || Vector3.Angle(Vector3.forward, moveVector) == 0)
-            {
-                Vector3 direct = Vector3.RotateTowards(transform.forward, moveVector, speedMove, 0.0f);
-                transform.rotation = Quaternion.LookRotation(direct);
-            }
+            run = -3f;
+        }else if(PosBtnRight != BtnRight.transform.position.y)
+        {
+            run = 3f;
         }
         else
         {
-            if (gravityForce < -3f) ch_animator.SetBool("Falling", true);
+            run = 0f;
         }
-
-        moveVector.y = gravityForce;//Расчет гравитации выполнять после разворота
-        ch_controller.Move(moveVector * Time.deltaTime);//Метод передвижения по направлению
-    }
-
-    //Метод гравитации
-    private void GamingGravity()
-    {
-        if (!ch_controller.isGrounded) gravityForce -= 20f * Time.deltaTime;
-        else gravityForce = -1f;
-        if (Input.GetKeyDown(KeyCode.Space) && ch_controller.isGrounded) gravityForce = jumpPower;
-        {
-            gravityForce = jumpPower;
-            ch_animator.SetTrigger("Jump");
-        }
+        rb.velocity = new Vector2(run, rb.velocity.y);
     }
 }
-
 
