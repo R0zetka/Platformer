@@ -7,7 +7,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-   
+    public Transform left;
+    public Transform right;
+    public float rotateSpeed;
     public GameObject BtnRight;
     public GameObject BtnLeft;
     float PosBtnLeft;
@@ -26,11 +28,15 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A)|| (PosBtnLeft != BtnLeft.transform.position.y))
         {
-            transform.Translate(Vector3.back * run * Time.deltaTime);
+
+            transform.Translate(Vector3.forward * run * Time.deltaTime);
+             transform.LookAt(left);
         }
         if (Input.GetKey(KeyCode.D)|| (PosBtnRight != BtnRight.transform.position.y))
         {
-               transform.Translate(Vector3.forward * run * Time.deltaTime);
+            
+                transform.Translate(Vector3.forward * run * Time.deltaTime);
+                transform.LookAt(right);
         }
 
 
