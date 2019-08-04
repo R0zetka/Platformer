@@ -7,33 +7,38 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Rigidbody2D rb;
+   
     public GameObject BtnRight;
     public GameObject BtnLeft;
     float PosBtnLeft;
     float PosBtnRight;
-    float run;
+    public float run;
 
     private void Start()
     {
         PosBtnRight = BtnRight.transform.position.y;
         PosBtnLeft = BtnLeft.transform.position.y;
-        rb = GetComponent<Rigidbody2D>();
+
     }
     private void Update()
     {
-        if (PosBtnLeft != BtnLeft.transform.position.y)
+
+
+        if (Input.GetKey(KeyCode.D)|| (PosBtnLeft != BtnLeft.transform.position.y))
         {
-            run = -3f;
-        }else if(PosBtnRight != BtnRight.transform.position.y)
-        {
-            run = 3f;
+            transform.Translate(Vector3.back * run * Time.deltaTime);
         }
-        else
+        if (Input.GetKey(KeyCode.A)|| (PosBtnRight != BtnRight.transform.position.y))
         {
-            run = 0f;
+               transform.Translate(Vector3.forward * run * Time.deltaTime);
         }
-        rb.velocity = new Vector2(run, rb.velocity.y);
+
+
+
+
+
+
     }
+
 }
 
