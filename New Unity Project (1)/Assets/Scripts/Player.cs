@@ -24,11 +24,11 @@ public class Player : MonoBehaviour
     {
 
 
-        if (Input.GetKey(KeyCode.D)|| (PosBtnLeft != BtnLeft.transform.position.y))
+        if (Input.GetKey(KeyCode.A)|| (PosBtnLeft != BtnLeft.transform.position.y))
         {
             transform.Translate(Vector3.back * run * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.A)|| (PosBtnRight != BtnRight.transform.position.y))
+        if (Input.GetKey(KeyCode.D)|| (PosBtnRight != BtnRight.transform.position.y))
         {
                transform.Translate(Vector3.forward * run * Time.deltaTime);
         }
