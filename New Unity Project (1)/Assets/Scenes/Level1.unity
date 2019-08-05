@@ -7850,9 +7850,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f20b594f22f47ba81c3e1476869008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1825126602}
   left: {fileID: 463774133}
   right: {fileID: 227121507}
-  rotateSpeed: 0
+  JumpSpeed: 0
   BtnRight: {fileID: 416292652}
   BtnLeft: {fileID: 101663316}
   run: 5

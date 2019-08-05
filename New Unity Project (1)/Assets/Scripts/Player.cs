@@ -7,9 +7,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public GameObject player;
     public Transform left;
     public Transform right;
-    public float rotateSpeed;
+    public float JumpSpeed;
     public GameObject BtnRight;
     public GameObject BtnLeft;
     float PosBtnLeft;
@@ -40,8 +41,10 @@ public class Player : MonoBehaviour
         }
 
 
-
-
+        if (Input.GetKey(KeyCode.W))
+        {
+            player.transform.position += player.transform.position * JumpSpeed;
+        }
 
 
     }
