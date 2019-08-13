@@ -11,11 +11,13 @@ public class Player : MonoBehaviour
     public GameObject player;
     public Transform left;
     public Transform right;
-   
+
+    public GameObject BtnJump;
     public GameObject BtnRight;
     public GameObject BtnLeft;
     float PosBtnLeft;
     float PosBtnRight;
+    float PosBtnJump;
     public float run;
 
     public bool IsGround;
@@ -28,7 +30,7 @@ public class Player : MonoBehaviour
     {
         PosBtnRight = BtnRight.transform.position.y;
         PosBtnLeft = BtnLeft.transform.position.y;
-
+        PosBtnJump = BtnJump.transform.position.y;
     }
     private void Update()
     {
@@ -64,12 +66,14 @@ public class Player : MonoBehaviour
         {
             IsGround = false;
         }
-        if (Input.GetKeyDown(KeyCode.W) && IsGround == true)
+        if (IsGround == true)
         {
-            transform.Translate(Vector3.up * JumpSpeed );
-            // player.transform.position = transform.position * JumpSpeed;
+            if (Input.GetKeyDown(KeyCode.W) || (PosBtnJump != BtnJump.transform.position.y))
+            {
+                transform.Translate(Vector3.up * JumpSpeed);
+                // player.transform.position = transform.position * JumpSpeed;
+            }
         }
-       
     }
 
 }

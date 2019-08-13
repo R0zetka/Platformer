@@ -7941,6 +7941,7 @@ MonoBehaviour:
   player: {fileID: 1825126602}
   left: {fileID: 463774133}
   right: {fileID: 227121507}
+  BtnJump: {fileID: 1129235702}
   BtnRight: {fileID: 416292652}
   BtnLeft: {fileID: 101663316}
   run: 5
