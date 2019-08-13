@@ -1,77 +1,80 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
-public class Player : MonoBehaviour {     //Основные параметры
 
-    public float speedMove;//скорость персонажа
-    public float jumpPower;//сила прыжка
+public class Player : MonoBehaviour
+{
+    public GameObject player;
+    public Transform left;
+    public Transform right;
 
-    //Параметры геймплея для персонажа
-    private float gravityForce;//гравитация перса
-    private Vector3 moveVector;//направление движения перса
+    public GameObject BtnJump;
+    public GameObject BtnRight;
+    public GameObject BtnLeft;
+    float PosBtnLeft;
+    float PosBtnRight;
+    float PosBtnJump;
+    public float run;
 
-    //ссылки на компоненты
-    private CharacterController ch_controller;
-    private Animator ch_animator;
-    private MabelControler mContr;
+    public bool IsGround;
+    public float JumpSpeed;
+    private Rigidbody rb;
+
+
 
     private void Start()
     {
-        ch_controller = GetComponent<CharacterController>();
-        ch_animator = GetComponent<Animator>();
-        mContr = GameObject.FindGameObjectWithTag("Joystick").GetComponent<MabelControler>();
+        PosBtnRight = BtnRight.transform.position.y;
+        PosBtnLeft = BtnLeft.transform.position.y;
+        PosBtnJump = BtnJump.transform.position.y;
     }
-
     private void Update()
     {
-        CharacterMove();
-        GamingGravity();
-    }
+        Jump();
 
-    //метод перемещения персонажа
-    private void CharacterMove()
-    {
-        //Перемещение по поверхности
-        if (ch_controller.isGrounded)
+        if (Input.GetKey(KeyCode.A)|| (PosBtnLeft != BtnLeft.transform.position.y))
         {
-            //ch_animator.ResetTrigger("Jump");
-            //ch_animator.SetBool("Falling", false);
 
-            moveVector = Vector3.zero;
-            moveVector.x = mContr.Horizontal() * speedMove;
-            //moveVector.z = mContr.Vertical() * speedMove;
+            transform.Translate(Vector3.forward * run * Time.deltaTime);
+             transform.LookAt(left);
+        }
+        if (Input.GetKey(KeyCode.D)|| (PosBtnRight != BtnRight.transform.position.y))
+        {
+            
+                transform.Translate(Vector3.forward * run * Time.deltaTime);
+                transform.LookAt(right);
+        }
 
-            //Передвижение персонажа
-           // if (moveVector.x != 0 )ch_animator.SetBool("Move", true);
-           //else ch_animator.SetBool("Move", false);
 
-            if (Vector3.Angle(Vector3.forward, moveVector) > 1f || Vector3.Angle(Vector3.forward, moveVector) == 0)
-            {
-                Vector3 direct = Vector3.RotateTowards(transform.forward, moveVector, speedMove, 0.0f);
-                transform.rotation = Quaternion.LookRotation(direct);
-            }
+      
+
+
+    }
+    public void Jump()
+    {
+        Ray ray = new Ray(gameObject.transform.position, Vector3.down);
+        RaycastHit rh;
+        if (Physics.Raycast(ray,out rh, 1f))
+        {
+            IsGround = true;
         }
         else
         {
-            if (gravityForce < -3f) ch_animator.SetBool("Falling", true);
+            IsGround = false;
         }
-
-        moveVector.y = gravityForce;//Расчет гравитации выполнять после разворота
-        ch_controller.Move(moveVector * Time.deltaTime);//Метод передвижения по направлению
-    }
-
-    //Метод гравитации
-    private void GamingGravity()
-    {
-        if (!ch_controller.isGrounded) gravityForce -= 20f * Time.deltaTime;
-        else gravityForce = -1f;
-        if (Input.GetKeyDown(KeyCode.Space) && ch_controller.isGrounded) gravityForce = jumpPower;
+        if (IsGround == true)
         {
-            gravityForce = jumpPower;
-           // ch_animator.SetTrigger("Jump");
+            if (Input.GetKeyDown(KeyCode.W) || (PosBtnJump != BtnJump.transform.position.y))
+            {
+                transform.Translate(Vector3.up * JumpSpeed);
+                // player.transform.position = transform.position * JumpSpeed;
+            }
         }
     }
+
 }
+
